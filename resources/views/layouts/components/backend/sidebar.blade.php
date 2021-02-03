@@ -1,7 +1,7 @@
     <div class="sidebar" data-color="default" data-active-color="danger">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color=" default | primary | info | success | warning | danger |"
-    -->
+      -->
       <div class="logo">
         <a href="../../../www.creative-tim.com/index.html" class="simple-text logo-mini">
           <div class="logo-image-small">
@@ -25,13 +25,13 @@
             </a>
           </li>
           <li>
-            <a data-toggle="collapse" href="#pagesExamples">
+            <a data-toggle="collapse" href="#komponendaftarfilm">
               <i class="nc-icon nc-book-bookmark"></i>
               <p>
                 Film <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse " id="pagesExamples">
+            <div class="collapse " id="komponendaftarfilm">
               <ul class="nav">
                 <li>
                   <a href="{{ route('movie.index') }}">
@@ -49,13 +49,13 @@
             </div>
           </li>
           <li>
-            <a data-toggle="collapse" href="#componentsExamples">
+            <a data-toggle="collapse" href="#komponenkategori">
               <i class="nc-icon nc-layout-11"></i>
               <p>
                 Kategori <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse " id="componentsExamples">
+            <div class="collapse " id="komponenkategori">
               <ul class="nav">
                 <li>
                   <a href="{{ route('category.index') }}">
@@ -71,7 +71,15 @@
                 </li>
               </ul>
             </div>
-            <div class="collapse " id="componentsExamples">
+          </li>
+          <li>
+            <a data-toggle="collapse" href="#komponenjamtayang">
+              <i class="nc-icon nc-layout-11"></i>
+              <p>
+                Jam Tayang <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse " id="komponenjamtayang">
               <ul class="nav">
                 <li>
                   <a href="{{ route('category.index') }}">
@@ -82,21 +90,29 @@
                 <li>
                   <a href="{{ route('category.add') }}">
                     <span class="sidebar-mini-icon">T</span>
-                    <span class="sidebar-normal"> Tambah Jam </span>
+                    <span class="sidebar-normal"> Tambah Jam Tayang </span>
                   </a>
                 </li>
               </ul>
             </div>
-            <div class="collapse " id="componentsExamples">
+          </li>
+          <li>
+            <a data-toggle="collapse" href="#komponenruang">
+              <i class="nc-icon nc-book-bookmark"></i>
+              <p>
+                Ruang <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse " id="komponenruang">
               <ul class="nav">
                 <li>
-                  <a href="{{ route('category.index') }}">
+                  <a href="{{ route('movie.index') }}">
                     <span class="sidebar-mini-icon">D</span>
                     <span class="sidebar-normal"> Daftar Ruang </span>
                   </a>
                 </li>
                 <li>
-                  <a href="{{ route('category.add') }}">
+                  <a href="{{ route('movie.add') }}">
                     <span class="sidebar-mini-icon">T</span>
                     <span class="sidebar-normal"> Tambah Ruang </span>
                   </a>
