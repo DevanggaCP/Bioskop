@@ -117,7 +117,7 @@ class ScheduleController extends Controller
 
         if ($validator->fails()) {
             return redirect()->route('schedule.add')
-            ->with('error', 'Schedule created failed.');
+            ->with('error', 'Schedule updated failed.');
         }
 
         $schedule->update([
@@ -128,7 +128,7 @@ class ScheduleController extends Controller
         ]);
 
         return redirect()->route('schedule.index')
-            ->with('success', 'Schedule created successfully.');
+            ->with('success', 'Schedule updated successfully.');
     }
 
     /**
