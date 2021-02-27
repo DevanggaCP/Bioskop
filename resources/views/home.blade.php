@@ -5,7 +5,7 @@
     <div class="movie-items">
         <div class="container">
             <div class="row ipad-width">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="title-hd">
                         <h2>film bioskop</h2>
                         <a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>

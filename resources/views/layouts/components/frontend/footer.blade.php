@@ -12,7 +12,6 @@
 				<ul>
 					<li><a href="#">Home</a></li> 
 					<li><a href="#">Film</a></li>
-					<li><a href="#">Pusat Bantuan</a></li>
 					<li><a href="#">Login</a></li>
 					<li><a href="#">Sign Up</a></li>					
 				</ul>

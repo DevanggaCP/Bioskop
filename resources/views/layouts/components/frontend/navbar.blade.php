@@ -41,7 +41,6 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right"> 	              
-						<li><a href="#">Pusat bantuan</a></li>
 						@guest
 							@if (Route::has('login'))
 								<li><a href="/login">LOG In</a></li>
