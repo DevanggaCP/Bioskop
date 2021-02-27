@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('layouts/components/backend/navbar')
-@include('layouts/components/backend/sidebar')
 <div class="row">
   <div class="col-md-12">
     @if ($errors->any())
@@ -15,7 +13,7 @@
               </ul>
           </div>
       @endif
-    <form class="form-horizontal" action="{{ route('movie.store') }}" method="POST">
+    <form class="form-horizontal" enctype="multipart/form-data" action="{{ route('movie.store') }}" method="POST">
       @csrf
       <div class="card ">
         <div class="card-header ">
@@ -31,10 +29,26 @@
             </div>
           </div>
           <div class="row">
+            <label class="col-sm-2 col-form-label">Kategori Film</label>
+            <div class="col-sm-7">
+              <div class="form-group">
+                <select class="form-control" name="category" id="category" required="true">
+                  <option value="">- Pilih kategori -</option>
+                  @foreach ($category as $item)
+                      <option value="{{ $item['id'] }}">{{ $item['nama'] }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <label class="col-sm-2 col-form-label">Poster</label>
             <div class="col-sm-7">
               <div class="form-group">
-                <input class="form-control" type="text" name="poster" maxLength="5" required="true" />
+                <input class="form-control" type="file" name="poster" placeholder="Choose image" id="image">
+                @error('image')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
               </div>
             </div>
           </div>
@@ -42,7 +56,7 @@
             <label class="col-sm-2 col-form-label">Sinopsis</label>
             <div class="col-sm-7">
               <div class="form-group">
-                <input class="form-control" type="text" name="sinopsis" range="[6,10]" required="true" />
+                <textarea class="form-control" name="sinopsis" required="true"></textarea>
               </div>
             </div>
           </div>
@@ -51,6 +65,14 @@
             <div class="col-sm-7">
               <div class="form-group">
                 <input class="form-control" type="text" name="harga" min="6" required="true" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Durasi Film</label>
+            <div class="col-sm-7">
+              <div class="form-group">
+                <input class="form-control" type="text" name="durasi" required="true" />
               </div>
             </div>
           </div>

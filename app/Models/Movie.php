@@ -10,9 +10,21 @@ class movie extends Model
     use HasFactory;
     protected $fillable = [
         'namafilm',
+        'category_id',
         'poster',
         'sinopsis',
-        'harga'
+        'harga',
+        'durasi',
     ];
+
+    public function category()
+    {
+    	return $this->belongsTo(Category::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 
 }

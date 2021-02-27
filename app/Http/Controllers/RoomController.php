@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Room;
+use App\Models\Movie;
+use Illuminate\Support\Facades\Validator;
 
 class RoomController extends Controller
 {
@@ -13,7 +16,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $data = Room::all();
+        return view('pages.backend.room.index', compact('data'));
     }
 
     /**
@@ -23,7 +27,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.backend.room.add');
     }
 
     /**
@@ -34,7 +38,28 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'namaRuang' => 'required',
+            'jumlahKursi' => 'required',
+            'harga' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('room.add')
+            ->with('error', 'Room created failed.');
+        }
+
+        $Room = Room::create(array_merge(
+            $validator->validated(),
+            [
+                'namaRuang' => $request->namaRuang,
+                'jumlahKursi' => $request->jumlahKursi,
+                'harga' => $request->harga,
+            ]
+        ));
+
+        return redirect()->route('room.index')
+            ->with('success', 'Room created successfully.');
     }
 
     /**
@@ -56,7 +81,8 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        //
+        $room = Room::findOrFail($id);
+        return view('pages.backend.room.edit', compact('room'));
     }
 
     /**
@@ -68,7 +94,27 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $room = Room::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'namaRuang' => 'required',
+            'jumlahKursi' => 'required',
+            'harga' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('room.add')
+            ->with('error', 'Room updated failed.');
+        }
+
+        $room->update([
+            'namaRuang' => $request->namaRuang,
+            'jumlahKursi' => $request->jumlahKursi,
+            'harga' => $request->harga,
+        ]);
+
+        return redirect()->route('room.index')
+            ->with('success', 'Room updated successfully.');
     }
 
     /**
@@ -79,6 +125,8 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Room::find($id)->delete();
+        return redirect()->route('room.index')
+            ->with('success', 'Room deleted successfully');
     }
 }

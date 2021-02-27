@@ -15,10 +15,9 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->foreign('movie_id')->references('id')->on('movies');
-            $table->datetime('jamTayang');
+            $table->string('namaRuang');
             $table->integer('jumlahKursi');
+            $table->integer('harga');
             $table->timestamps();
         });
     }

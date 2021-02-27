@@ -12,4 +12,8 @@ class category extends Model
     protected $fillable = [
         'nama'
     ];
+
+    public function movies(){
+        return $this->hasMany(Movie::class);
+    }
 }

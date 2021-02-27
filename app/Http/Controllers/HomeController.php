@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Movie;
+use App\Models\Room;
+use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -26,6 +30,9 @@ class HomeController extends Controller
         return view('home');
     }
     
+
+    // admin panel
+
     /**
      * Show the application dashboard.
      *
@@ -33,6 +40,10 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('admin');
+        $category = Category::all()->count();
+        $movie = Movie::all()->count();
+        $room = Room::all()->count();
+        $transaction = Transaction::all()->count();
+        return view('pages.backend.dashboard', compact(['category', 'movie', 'room', 'transaction']));
     }
 }

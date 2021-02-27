@@ -19,6 +19,8 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{ asset('backend/demo/demo.css') }}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  @yield('cssCode')
+  
 </head>
 
 <body class="">
@@ -60,5 +62,7 @@
      demo.initChartsPages();
    });
  </script>
+ @yield('jsCode')
+
 </body>
 </html>

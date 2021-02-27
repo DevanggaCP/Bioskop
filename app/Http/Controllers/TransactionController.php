@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Transaction;
+use App\Models\Schedule;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * DisplaScheduley a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $data = Transaction::all();
+        return view('pages.backend.transaction.index', compact('data'));
     }
 
     /**
@@ -23,7 +28,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $schedule = Schedule::with(['room', 'movie'])->get();
+        $user = User::all();
+
+        return view('pages.backend.transaction.add', compact(['schedule', 'user']));
     }
 
     /**
@@ -34,7 +42,41 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user' => 'required',
+            'schedule' => 'required',
+            'jumlahTiket' => 'required',
+            'totalHarga' => 'required',
+            'bayar' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('transaction.add')
+            ->with('error', 'Transaction created failed.');
+        }
+        
+        $status = '';
+
+        if($request->bayar >= $request->totalHarga){
+            $status = "paid";
+        }else{
+            $status = "checkout";
+        }
+
+        $transaction = Transaction::create(array_merge(
+            $validator->validated(),
+            [
+                'user_id' => $request->user,
+                'schedule_id' => $request->schedule,
+                'jumlahTiket' => $request->jumlahTiket,
+                'totalHarga' => $request->totalHarga,
+                'bayar' => $request->bayar,
+                'status' => $status,
+            ]
+        ));
+
+        return redirect()->route('transaction.index')
+            ->with('success', 'Transaction created successfully.');
     }
 
     /**
@@ -56,7 +98,10 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $schedule = Schedule::with(['room', 'movie'])->get();
+        $user = User::all();
+        $transaction = Transaction::findOrFail($id);
+        return view('pages.backend.transaction.edit', compact(['transaction', 'schedule', 'user']));
     }
 
     /**
@@ -68,7 +113,40 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'user' => 'required',
+            'schedule' => 'required',
+            'jumlahTiket' => 'required',
+            'totalHarga' => 'required',
+            'bayar' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('transaction.add')
+            ->with('error', 'Transaction updated failed.');
+        }
+        
+        $status = '';
+
+        if($request->bayar >= $request->totalHarga){
+            $status = "paid";
+        }else{
+            $status = "checkout";
+        }
+
+        $transaction->update([
+            'user_id' => $request->user,
+            'schedule_id' => $request->schedule,
+            'jumlahTiket' => $request->jumlahTiket,
+            'totalHarga' => $request->totalHarga,
+            'bayar' => $request->bayar,
+            'status' => $status,
+        ]);
+
+        return redirect()->route('transaction.index')
+            ->with('success', 'Transaction updated successfully.');
     }
 
     /**
@@ -80,5 +158,13 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function selectTotalPrice(Request $request){
+        if($request->ajax()){
+    		$jadwal = Schedule::with(['room', 'movie'])->where('id', $request->id_jadwal)->get()->first();
+            $totalBiaya = ($jadwal->room->harga + $jadwal->movie->harga);
+    		return response()->json(['options'=>$totalBiaya]);
+    	}
     }
 }

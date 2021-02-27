@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('layouts/components/backend/navbar')
-@include('layouts/components/backend/sidebar')
 <div class="row">
 	<div class="col-md-12">
 		@if ($errors->any())

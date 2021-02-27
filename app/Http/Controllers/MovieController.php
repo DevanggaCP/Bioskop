@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
@@ -26,7 +27,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.movie.add');
+        $category = Category::all();
+        return view('pages.backend.movie.add', compact('category'));
     }
 
     /**
@@ -39,9 +41,11 @@ class MovieController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'namafilm' => 'required',
-            'poster' => 'required',
             'sinopsis' => 'required',
             'harga' => 'required',
+            'category' => 'required',
+            'durasi' => 'required',
+            'poster' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -49,13 +53,17 @@ class MovieController extends Controller
             ->with('error', 'Movie created failed.');
         }
 
+        $path = $request->file('poster')->store('public/images/poster');
+
         $Movie = Movie::create(array_merge(
             $validator->validated(),
             [
                 'namafilm' => $request->namafilm,
-                'poster' => $request->poster,
+                'poster' => $path,
+                'category_id' => $request->category,
                 'sinopsis' => $request->sinopsis,
                 'harga' => $request->harga,
+                'durasi' => $request->durasi,
             ]
         ));
 
@@ -82,7 +90,9 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::all();
+        $movie = Movie::findOrFail($id);
+        return view('pages.backend.movie.edit', compact(['movie', 'category']));
     }
 
     /**
@@ -94,7 +104,43 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $movie = Movie::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'namafilm' => 'required',
+            'sinopsis' => 'required',
+            'harga' => 'required',
+            'category' => 'required',
+            'durasi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('movie.index')
+            ->with('error', 'Movie Updated failed.');
+        }
+
+        if($request->file('poster') !== null){
+            $path = $request->file('poster')->store('public/images/poster');
+            $movie->update([
+                'namafilm' => $request->namafilm,
+                'category_id' => $request->category,
+                'poster' => $path,
+                'sinopsis' => $request->sinopsis,
+                'harga' => $request->harga,
+                'durasi' => $request->durasi,
+            ]);
+        }else{
+            $movie->update([
+                'namafilm' => $request->namafilm,
+                'category_id' => $request->category,
+                'sinopsis' => $request->sinopsis,
+                'harga' => $request->harga,
+                'durasi' => $request->durasi,
+            ]);
+        }
+
+        return redirect()->route('movie.index')
+            ->with('success', 'Movie updated successfully.');
     }
 
     /**
@@ -105,7 +151,9 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Movie::find($id)->delete();
+        return redirect()->route('movie.index')
+            ->with('success', 'Movie deleted successfully');
     }
     
 }

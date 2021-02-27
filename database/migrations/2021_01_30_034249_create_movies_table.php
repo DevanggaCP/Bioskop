@@ -17,8 +17,11 @@ class CreateMoviesTable extends Migration
             $table->id();
             $table->string('namafilm');
             $table->string('poster');
-            $table->string('sinopsis');
+            $table->text('sinopsis');
             $table->integer('harga');
+            $table->string('durasi');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

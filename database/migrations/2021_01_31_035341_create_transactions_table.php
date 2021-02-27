@@ -17,10 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('movie_id');
-            $table->foreign('movie_id')->references('id')->on('movies');
-            $table->unsignedBigInteger('room_id');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->unsignedBigInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->integer('jumlahTiket');
+            $table->integer('totalHarga');
             $table->integer('bayar');
             $table->string('status');
             $table->timestamps();
