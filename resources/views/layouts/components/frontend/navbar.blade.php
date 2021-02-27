@@ -35,23 +35,13 @@
 							</a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown" href="frontend/moviegrid">
-							movies
+							<a class="btn btn-default dropdown-toggle lv1" href="{{ route('movie.public') }}">
+							Film
 							</a>
 						</li>
 					</ul>
-					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							pages <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
-								<li><a href="404.html">404 Page</a></li>
-								<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-							</ul>
-						</li>                
-						<li><a href="#">Help</a></li>
+					<ul class="nav navbar-nav flex-child-menu menu-right"> 	              
+						<li><a href="#">Pusat bantuan</a></li>
 						@guest
 							@if (Route::has('login'))
 								<li><a href="/login">LOG In</a></li>

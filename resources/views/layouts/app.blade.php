@@ -24,7 +24,7 @@
 <body>
     @include('layouts/components/frontend/navbar')
     
-            @yield('content')
+        @yield('content')
 
     @include('layouts/components/frontend/footer')
 

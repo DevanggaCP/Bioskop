@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/movie', [App\Http\Controllers\HomeController::class, 'movie'])->name('movie.public');
+
 
 Route::middleware(['is_admin'])->group(function () {
 	Route::prefix('admin')->group(function () {
