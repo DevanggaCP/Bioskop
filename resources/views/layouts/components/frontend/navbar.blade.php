@@ -39,6 +39,11 @@
 							Film
 							</a>
 						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="{{ route('nonton.public') }}">
+							Jadwal film
+							</a>
+						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right"> 	              
 						@guest
@@ -50,6 +55,12 @@
 								<li class="btn"><a href="/register">sign up</a></li>
 							@endif
 						@else
+
+							@if (Auth::user()->is_admin == 1)
+								<li><a href="/admin">Admin Dashboard</a></li>
+							@else
+								<li><a href="/list-order">List Order</a></li>
+							@endif
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
 							{{ Auth::user()->name }}<i class="fa fa-angle-down" aria-hidden="true"></i>

@@ -35,6 +35,31 @@ class TransactionController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createPublic($id)
+    {
+        $schedule = Schedule::with(['room', 'movie'])->where('id', $id)->get()->first();
+        return view('pages.frontend.transaction.add', compact('schedule'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lunasiPublic($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        $schedule_id = $transaction->schedule_id;
+        $schedule = Schedule::with(['room', 'movie'])->where('id', $schedule_id)->get()->first();
+        return view('pages.frontend.transaction.lunasi', compact(['schedule', 'transaction']));
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

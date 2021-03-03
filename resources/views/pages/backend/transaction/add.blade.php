@@ -87,7 +87,6 @@
         </form>
     </div>
 </div>
-
 @endsection
 
 @section('jsCode')

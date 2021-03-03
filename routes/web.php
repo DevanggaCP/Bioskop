@@ -13,19 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/movie', [App\Http\Controllers\HomeController::class, 'movie'])->name('movie.public');
+Route::get('/nonton', [App\Http\Controllers\HomeController::class, 'nonton'])->name('nonton.public');
+Route::get('/movie/{id}', [App\Http\Controllers\HomeController::class, 'movieById']);
+Route::get('/listOrder/{id}', [App\Http\Controllers\HomeController::class, 'listOrder']);
+Route::get('/transaction/add/{id}', [App\Http\Controllers\TransactionController::class, 'createPublic']);
+Route::get('/transaction/lunasi/{id}', [App\Http\Controllers\TransactionController::class, 'lunasiPublic']);
+Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store'])->name('transaction.store.public');
+Route::post('/transaction/lunasi', [App\Http\Controllers\TransactionController::class, 'lunasi'])->name('transaction.lunasi.public');
+Route::post('/selectTotalPrice', [App\Http\Controllers\TransactionController::class, 'selectTotalPrice'])->name('transaction.selectTotalPrice.public');
 
+Route::get('/list-order', [App\Http\Controllers\AdminController::class, 'listOrder'])->name('home');
 
 Route::middleware(['is_admin'])->group(function () {
 	Route::prefix('admin')->group(function () {
-		Route::get('/', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('dashboard');
+		Route::get('/', [App\Http\Controllers\AdminController::class, 'adminHome'])->name('dashboard');
 		
 		Route::get('/movie', [App\Http\Controllers\MovieController::class, 'index'])->name('movie.index');
 		Route::get('/movie/add', [App\Http\Controllers\MovieController::class, 'create'])->name('movie.add');

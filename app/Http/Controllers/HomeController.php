@@ -12,40 +12,16 @@ use App\Models\Schedule;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('home');
-    }
-    
+        $movie = Movie::with('category')->limit(4)->get();
+        $movieAll = Movie::all();
 
-    // admin panel
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function adminHome()
-    {
-        $category = Category::all()->count();
-        $movie = Movie::all()->count();
-        $room = Room::all()->count();
-        $transaction = Transaction::all()->count();
-        return view('pages.backend.dashboard', compact(['category', 'movie', 'room', 'transaction']));
+        return view('home', compact(['movie', 'movieAll']));
     }
 
     public function movie()
@@ -55,9 +31,16 @@ class HomeController extends Controller
         return view('pages.frontend.movie', compact(['movie', 'movieCount']));
     }
 
+    public function movieById($id)
+    {
+        $movie = Movie::findOrFail($id);
+        return view('pages.frontend.detailMovie', compact('movie'));
+    }
+
     public function nonton()
     {
         $schedule = Schedule::with(['room', 'movie'])->get();
-        return view('pages.frontend.schedule', compact('schedule'));
+        $scheduleCount = Schedule::all()->count();
+        return view('pages.frontend.schedule', compact(['schedule', 'scheduleCount']));
     }
 }

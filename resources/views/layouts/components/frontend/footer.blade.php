@@ -10,10 +10,10 @@
 			<div class="flex-child-ft item2">
 				<h4>Resources</h4>
 				<ul>
-					<li><a href="#">Home</a></li> 
-					<li><a href="#">Film</a></li>
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Sign Up</a></li>					
+					<li><a href="/">Home</a></li> 
+					<li><a href="/movie">Film</a></li>
+					<li><a href="/login">Login</a></li>
+					<li><a href="/register">Sign Up</a></li>					
 				</ul>
 			</div>
 		</div>

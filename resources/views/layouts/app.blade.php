@@ -20,6 +20,7 @@
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
     <link rel="stylesheet" href="{{ asset('frontend/css/plugins.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    @yield('cssCode')
 </head>
 <body>
     @include('layouts/components/frontend/navbar')
@@ -32,5 +33,6 @@
     <script src="{{asset('frontend/js/plugins.js')}}"></script>
     <script src="{{asset('frontend/js/plugins2.js')}}"></script>
     <script src="{{asset('frontend/js/custom.js')}}"></script>
+    @yield('jsCode')
 </body>
 </html>

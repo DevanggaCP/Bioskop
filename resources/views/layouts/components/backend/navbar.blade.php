@@ -32,8 +32,16 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Logout</a>
-                  {{-- <a class="dropdown-item" href="#">Another action</a> --}}
+                  <a class="dropdown-item" href="/">Homepage Website</a>
+                    <a class="dropdown-item" href="{{ route('logout')}}"
+                    onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                    </a>
+                    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                    </form>
                   {{-- <a class="dropdown-item" href="#">Something else here</a> --}}
                 </div>
               </li>

@@ -15,7 +15,7 @@
                             <div class="movie-item-style-2 movie-item-style-1">
                                 <img src="{{ Storage::disk('mediaPoster')->url($item['poster']) }}" alt="">
                                 <div class="hvr-inner">
-                                    <a  href="moviesingle.html"> Detail <i class="ion-android-arrow-dropright"></i> </a>
+                                    <a  href="movie/{{$item['id']}}"> Detail<i class="ion-android-arrow-dropright"></i> </a>
                                 </div>
                                 <div class="mv-item-infor">
                                     <h6><a href="#">{{ $item['namafilm'] }}</a></h6>
