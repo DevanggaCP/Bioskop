@@ -58,6 +58,48 @@ class TransactionController extends Controller
         return view('pages.frontend.transaction.lunasi', compact(['schedule', 'transaction']));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function lunasi(Request $request)
+    {
+        $id = $request->id;
+        $transaction = Transaction::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'bayar' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('transaction.lunasi.public')
+            ->with('error', 'Transaction updated failed.');
+        }
+
+        $bayarLama = $transaction['bayar'];
+        $bayar = 0;
+        // if($bayarLama <= (int)$request->bayar){
+            $bayar = $transaction['bayar'] + $request->bayar;
+        // }
+
+        $status = '';
+
+        if($bayar == $transaction['totalHarga']){
+            $status = "paid";
+        }else{
+            $status = "checkout";
+        }
+
+        $transaction->update([
+            'bayar' => $bayar,
+            'status' => $status,
+        ]);
+
+        return redirect()->route('listOrder')
+            ->with('success', 'Transaction updated successfully.');
+    }
 
     /**
      * Store a newly created resource in storage.

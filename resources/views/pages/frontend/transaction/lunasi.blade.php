@@ -57,6 +57,7 @@
                                                         @csrf
                                                         <div class="card">
                                                             <div class="card-body mt-4">
+                                                                <input type="hidden" name="id" value="{{$transaction['id']}}">
                                                                 <div class="row">
                                                                     <label class="col-sm-2 col-form-label">Pengguna</label>
                                                                     <div class="col-sm-10">
@@ -105,7 +106,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <input type="submit" class="submit" value="Beli tiket"></input>
+                                                                    <input type="submit" class="submit" value="Lunasi"></input>
                                                                 </div>
                                                             </div>
                                                         </div>

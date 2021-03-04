@@ -31,7 +31,7 @@ Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 
 Route::post('/transaction/lunasi', [App\Http\Controllers\TransactionController::class, 'lunasi'])->name('transaction.lunasi.public');
 Route::post('/selectTotalPrice', [App\Http\Controllers\TransactionController::class, 'selectTotalPrice'])->name('transaction.selectTotalPrice.public');
 
-Route::get('/list-order', [App\Http\Controllers\AdminController::class, 'listOrder'])->name('home');
+Route::get('/list-order', [App\Http\Controllers\AdminController::class, 'listOrder'])->name('listOrder');
 
 Route::middleware(['is_admin'])->group(function () {
 	Route::prefix('admin')->group(function () {

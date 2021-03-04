@@ -20,6 +20,16 @@
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-12 col-sm-12 col-xs-12">
+				@if ($errors->any())
+					<div class="alert alert-danger">
+						<strong>Whoops!</strong> There were some problems with your input.<br><br>
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
 				<div class="topbar-filter user">
 					<p>Found <span>{{ $tiketCount }} Transaction</span> in total</p>
 					<a href="#" class="list"><i class="ion-ios-list-outline active"></i></a>
